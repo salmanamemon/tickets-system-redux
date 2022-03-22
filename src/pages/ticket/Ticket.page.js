@@ -15,7 +15,7 @@ export const Ticket = () => {
 
   useEffect(() => {
     for (let i = 0; i < tickets.length; i++) {
-      if (tickets[i].id == tId) {
+      if (tickets[i].id === tId) {
         setTicket(tickets[i]);
         continue;
       }
