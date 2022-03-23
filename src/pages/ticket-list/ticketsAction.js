@@ -1,5 +1,3 @@
-import axios from 'axios';
-
 import {
     fetchTicketLoading,
     fetchTicketSuccess,
@@ -7,17 +5,13 @@ import {
     searchTickets,
 } from './ticketsSlice';
 
+import { getAllTickets } from '../../api/ticketApi';
+
 export const fetchAllTickets = () => async (dispatch) => {
     dispatch(fetchTicketLoading());
     // Fetch the Data From API
     try{
-        const result = await axios.get('http://127.0.0.1/a)TicketSystem/crm-frontend-before-redux-toolkit/api/v1/tickets.php',
-        {
-            headers:{
-                "content-type": "application/json; charset=UTF-8",
-                //'content-type': 'multipart/form-data'
-            },
-        });
+        const result = await getAllTickets();
         console.log(result.data)
         dispatch(fetchTicketSuccess(result.data))
         
