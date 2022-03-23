@@ -4,6 +4,7 @@ const initialState = {
     tickets: [],
     isLoading: false,
     error: "",
+    searchTicketList: [],
 }
 
 const ticketListSlice = createSlice({
@@ -15,12 +16,21 @@ const ticketListSlice = createSlice({
         },
         fetchTicketSuccess: (state, action) => {
             state.tickets = action.payload;
+            state.searchTicketList = action.payload;
             state.isLoading = false;
         },
         fetchTicketFail: (state, action) => {
             state.isLoading = false;
             state.error = action.payload;
         },
+        searchTickets: (state, action) => {
+
+            state.searchTicketList = state.tickets.filter(row =>{
+                if(!action.payload) return row
+
+                return row.subject.toLowerCase().includes(action.payload.toLowerCase());
+            })
+        }
     },
 });
 
@@ -31,6 +41,7 @@ export const {
     fetchTicketLoading, 
     fetchTicketSuccess, 
     fetchTicketFail,
+    searchTickets,
 } = actions;
 
 export default reducer;
