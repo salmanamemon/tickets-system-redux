@@ -8,6 +8,7 @@ export const Header = () => {
   const history = useHistory();
 
   const logMeOut = () => {
+    sessionStorage.removeItem('authToken');
     history.push("/");
   };
   return (

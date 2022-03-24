@@ -6,6 +6,7 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 include("config.php");
+session_start();
 try{
 	// echo "Success";
 	$data = json_decode(file_get_contents('php://input'), true);
@@ -28,7 +29,10 @@ try{
 			$resultsP = $query->fetchAll( PDO::FETCH_ASSOC );
 			if($resultsP){
 				$auth = $resultsP[0]['auth'];
+				$id = $resultsP[0]['id'];
+				$_SESSION['id'] = $id;
 				echo json_encode(array("status" => "success", "message" => "sign in success", "token" => $auth));
+				
 			}
 			else{
 				echo json_encode(array("message" => 'Password is incorrect', "status" => "error" ));

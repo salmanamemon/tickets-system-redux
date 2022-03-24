@@ -1,8 +1,11 @@
 import axios from "axios";
 
-const loginUrl = 'http://127.0.0.1/a)TicketSystem/crm-frontend-before-redux-toolkit/api/v1/login.php';
+const rootURL = 'http://127.0.0.1/a)TicketSystem/crm-frontend-before-redux-toolkit/api/v1/';
+const loginUrl = rootURL+'login.php';
+const userProfileUrl = rootURL+'user.php';
+const logoutUrl = rootURL+'logout.php';
 
-export const userLogin = frmData => {
+export const userLogin = (frmData) => {
     return new Promise (async (resolve, reject) => {
 
         try {
@@ -21,4 +24,47 @@ export const userLogin = frmData => {
         }
 
     })
+}
+
+export const fetchUser = () => {
+    return new Promise (async (resolve, reject) => {
+
+        try {
+
+            const authToken = sessionStorage.getItem('authToken');
+            if(!authToken){
+                reject("Token not found!")
+            }
+            
+            const res= await axios.get(userProfileUrl, 
+                { 
+                    headers: {"Authorization" : `${authToken}`} 
+                }
+            )
+            console.log(res);
+            resolve(res.data);
+
+            if(res.data.status === "success"){
+                sessionStorage.setItem('authToken', res.data.token);
+                //console.log(res.data.token)
+            }
+
+        } catch (error) {
+            console.log(error)
+            reject(error.message)
+        }
+
+    });
+};
+
+export const userLogout = async () => {
+    try {
+        await axios.delete(logoutUrl, {
+            headers: {
+                Authorization: sessionStorage.getItem('authToken')
+            }
+        })
+    } catch (error) {
+        console.log(error)
+    }
 }
