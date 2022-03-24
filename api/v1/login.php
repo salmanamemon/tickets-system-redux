@@ -28,18 +28,18 @@ try{
 			$resultsP = $query->fetchAll( PDO::FETCH_ASSOC );
 			if($resultsP){
 				$auth = $resultsP[0]['auth'];
-				echo json_encode(array("success" => "0", "message" => "sign in success", "token" => $auth));
+				echo json_encode(array("status" => "success", "message" => "sign in success", "token" => $auth));
 			}
 			else{
-				echo json_encode(array("message" => 'Password is incorrect', "status" => "FAILED" ));
+				echo json_encode(array("message" => 'Password is incorrect', "status" => "error" ));
 			}
 		}
 		else{
-			echo json_encode(array("message" => 'We do not know this email', "status" => "FAILED" ));
+			echo json_encode(array("message" => 'We do not know this email', "status" => "error" ));
 		}
 	}
 	else{
-		echo json_encode(array("message" => 'Enter an email and password', "status" => "FAILED"));
+		echo json_encode(array("message" => 'Enter an email and password', "status" => "error"));
 	}
 	
 } catch (Exception $e) {
