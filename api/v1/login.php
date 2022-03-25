@@ -6,7 +6,6 @@ header("Content-Type: application/json; charset=UTF-8");
 header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers, Authorization, X-Requested-With");
 
 include("config.php");
-session_start();
 try{
 	// echo "Success";
 	$data = json_decode(file_get_contents('php://input'), true);
@@ -30,7 +29,7 @@ try{
 			if($resultsP){
 				$auth = $resultsP[0]['auth'];
 				$id = $resultsP[0]['id'];
-				$_SESSION['id'] = $id;
+				session_start();
 				echo json_encode(array("status" => "success", "message" => "sign in success", "token" => $auth));
 				
 			}

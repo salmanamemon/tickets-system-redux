@@ -59,10 +59,13 @@ export const fetchUser = () => {
 
 export const userLogout = async () => {
     try {
-        await axios.delete(logoutUrl, {
-            headers: {
-                Authorization: sessionStorage.getItem('authToken')
-            }
+        const authToken = sessionStorage.getItem('authToken');
+        if(!authToken){
+            console.log("Token not found!")
+        }
+        await axios.get(logoutUrl,
+        { 
+            headers: {"Authorization" : `${authToken}`} 
         })
     } catch (error) {
         console.log(error)

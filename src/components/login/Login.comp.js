@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import { Container, Row, Col, Form, Button, Spinner, Alert } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
@@ -12,10 +12,15 @@ export const LoginForm = ({formSwitcher}) => {
   const dispatch = useDispatch();
   const history  = useHistory();
 
-  const {isLoading, isAuth, error} = useSelector(state => state.login)
+  const {isLoading, error} = useSelector(state => state.login);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  useEffect(() => {
+    sessionStorage.getItem('authToken') && history.push('/dashboard')
+  }, [history])
+  
+
+  const [email, setEmail] = useState("memon.salman@gmail.com");
+  const [password, setPassword] = useState("12345");
   
   const handleOnChange = (e) => {
     const { name, value } = e.target;
