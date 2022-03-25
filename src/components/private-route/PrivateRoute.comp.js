@@ -4,13 +4,15 @@ import { Route, Redirect } from "react-router-dom";
 import { loginSuccess } from "../login/loginSlice";
 import { DefaultLayout } from "../../layout/DefaultLayout";
 
+
+
 // const isAuth = true;
 export const PrivateRoute = ({ children, ...rest }) => {
   const dispatch = useDispatch();
   const { isAuth } = useSelector((state) => state.login);
   useEffect(() => {
-    sessionStorage.getItem('authToken') && dispatch(loginSuccess())
-  }, [dispatch]);
+    !isAuth && sessionStorage.getItem('authToken') && dispatch(loginSuccess())
+  }, [dispatch, isAuth]);
   
   return (
     <Route
