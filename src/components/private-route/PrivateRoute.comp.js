@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Route, Redirect } from "react-router-dom";
 import { loginSuccess } from "../login/loginSlice";
 import { DefaultLayout } from "../../layout/DefaultLayout";
+import { getUserProfile } from "../../pages/dashoard/userAction"
+
 
 
 
@@ -10,9 +12,13 @@ import { DefaultLayout } from "../../layout/DefaultLayout";
 export const PrivateRoute = ({ children, ...rest }) => {
   const dispatch = useDispatch();
   const { isAuth } = useSelector((state) => state.login);
+  const { user } = useSelector((state) => state.user);
+
   useEffect(() => {
+    !user.id && dispatch(getUserProfile())
+
     !isAuth && sessionStorage.getItem('authToken') && dispatch(loginSuccess())
-  }, [dispatch, isAuth]);
+  }, [dispatch, isAuth, user.id]);
   
   return (
     <Route

@@ -41,7 +41,7 @@ export const fetchUser = () => {
                     headers: {"Authorization" : `${authToken}`} 
                 }
             )
-            console.log(res);
+            //console.log(res);
             resolve(res.data);
 
             if(res.data.status === "success"){

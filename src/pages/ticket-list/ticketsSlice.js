@@ -5,6 +5,8 @@ const initialState = {
     isLoading: false,
     error: "",
     searchTicketList: [],
+    selectedTicket: {},
+    replyMsg: "",
 }
 
 const ticketListSlice = createSlice({
@@ -30,7 +32,43 @@ const ticketListSlice = createSlice({
 
                 return row.subject.toLowerCase().includes(action.payload.toLowerCase());
             })
-        }
+        },
+        fetchSingleTicketLoading: (state) => {
+            state.isLoading = true;
+        },
+        fetchSingleTicketSuccess: (state, action) => {
+            state.selectedTicket = action.payload;
+            state.isLoading = false;
+            state.error = "";
+        },
+        fetchSingleTicketFail: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+        replyTicketLoading: (state) => {
+            state.isLoading = true;
+        },
+        replyTicketSuccess: (state, action) => {
+            state.isLoading = false;
+            state.error = "";
+            state.replyMsg = action.payload;
+        },
+        replyTicketFail: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
+        closeTicketLoading: (state) => {
+            state.isLoading = true;
+        },
+        closeTicketSuccess: (state, action) => {
+            state.isLoading = false;
+            state.error = "";
+            state.replyMsg = action.payload;
+        },
+        closeTicketFail: (state, action) => {
+            state.isLoading = false;
+            state.error = action.payload;
+        },
     },
 });
 
@@ -42,6 +80,15 @@ export const {
     fetchTicketSuccess, 
     fetchTicketFail,
     searchTickets,
+    fetchSingleTicketLoading,
+    fetchSingleTicketSuccess,
+    fetchSingleTicketFail,
+    replyTicketLoading,
+    replyTicketSuccess,
+    replyTicketFail,
+    closeTicketLoading,
+    closeTicketSuccess,
+    closeTicketFail
 } = actions;
 
 export default reducer;
