@@ -4,6 +4,7 @@ import "./add-ticket-form.style.css";
 import { useDispatch, useSelector } from "react-redux";
 import { openNewTicket } from "./addTicketAction";
 import { shortText } from "../../utils/validation";
+import { openNewTicketResetSuccess } from './addTicketSlicer';
 
 const initialFrmDt = {
   subject: "",
@@ -24,7 +25,11 @@ export const AddTicketForm = () => {
   const [frmData, setFrmData] = useState(initialFrmDt);
   const [frmDataErro, setFrmDataErro] = useState(initialFrmError);
   
-  useEffect(() => {}, [frmData, frmDataErro]);
+  useEffect(() => {
+    return () => {
+      dispatch(openNewTicketResetSuccess())
+    }
+  }, [frmData, frmDataErro, dispatch]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
