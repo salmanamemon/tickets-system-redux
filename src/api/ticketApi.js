@@ -38,7 +38,7 @@ export const getSingleTicket = (id) => {
 export const updateReplyTicket = (id, msgObj) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const result = await axios.post('http://127.0.0.1/a)TicketSystem/crm-frontend-before-redux-toolkit/api/v1/ticket/singleticketinsert.php?id='+id,
+            const result = await axios.post('http://127.0.0.1/a)TicketSystem/crm-frontend-before-redux-toolkit/api/v1/ticket/singleticketmessageinsert.php?id='+id,
             {
                 headers:{
                     "content-type": "application/json; charset=UTF-8",
@@ -65,6 +65,27 @@ export const updateTicketStatusClosed = (id) => {
                     Authorization: sessionStorage.getItem("authToken"),
                 },
             });
+            
+            //console.log(result.data);
+            resolve(result.data);
+        } catch (error) {
+            console.log(error.message)
+            reject(error)
+        }
+    })
+}
+
+export const createNewTicket = (frmData) => {
+    return new Promise(async (resolve, reject) => {
+        try {
+            const result = await axios.post('http://127.0.0.1/a)TicketSystem/crm-frontend-before-redux-toolkit/api/v1/ticket/singleticketinsert.php',
+                {
+                    headers:{
+                        Authorization: sessionStorage.getItem("authToken"),
+                    },
+                    frmData,
+                }
+            );
             
             //console.log(result.data);
             resolve(result.data);

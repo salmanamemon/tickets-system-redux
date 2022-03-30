@@ -8,38 +8,57 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 include("../config.php");
 try{
 	
-	//GET ID from API URL
-	$tId = $_GET['id'];
+	//Initialize variable
+	$status = 'pending';
 
 	// Grab JSON object from Form
 	$data = json_decode(file_get_contents('php://input'), true);
 	// Grab Your Value from Json object
-	$dataMsg=json_encode($data['msgObj']['message']);
-
+	$dataSub=json_encode($data['frmData']['subject']);
 	// Replace quotes form the data
-	$message=str_replace('"',"",$dataMsg);
+	$subject=str_replace('"',"",$dataSub);
 	// Grab Your Value from Json object
-	$dataSender=json_encode($data['msgObj']['sender']);
+	$dataDetail=json_encode($data['frmData']['detail']);
 	// Replace quotes form the data
-	$sender=str_replace('"',"",$dataSender);
+	$detail=str_replace('"',"",$dataDetail);
+	// Grab Your Value from Json object
+	$dataDate=json_encode($data['frmData']['issueDate']);
+	// Replace quotes form the data
+	$openAt=str_replace('"',"",$dataDate);
+	// Grab Your Value from Json object
+	$dataEmail=json_encode($data['frmData']['email']);
+	// Replace quotes form the data
+	$email=str_replace('"',"",$dataEmail);
 
-	$sqlU = "INSERT INTO ticketconversations
-	SET 
-	message=:message, 
-	sender=:sender,
-	ticketRef=:ticketRef";
-	$queryU = $conn->prepare($sqlU);
-	$queryU->bindParam(':message', $message);
-	$queryU->bindParam(':sender', $sender);
-	$queryU->bindParam(':ticketRef', $tId);
-	if($queryU->execute())
-	{
-		echo json_encode(array("status" => "success", "message" => 'Message added Successfully'));
+	if($subject === '' || $detail === '' || $openAt === '' || $email === '' ){
+		echo json_encode(array("status" => "error", "message" => 'Some fields are empty'));
 	}
-	else
-	{
-		echo json_encode(array("status" => "error", "message" => 'Something Went Wrong'));
+	else{
+	
+		$sqlU = "INSERT INTO tickets
+		SET 
+		subject=:subject, 
+		status=:status,
+		sender=:sender,
+		detail=:detail,
+		openAt=:openAt";
+
+		$queryU = $conn->prepare($sqlU);
+		$queryU->bindParam(':subject', $subject);
+		$queryU->bindParam(':status', $status);
+		$queryU->bindParam(':sender', $email);
+		$queryU->bindParam(':detail', $detail);
+		$queryU->bindParam(':openAt', $openAt);
+		if($queryU->execute())
+		{
+			echo json_encode(array("status" => "success", "message" => 'Ticket added Successfully'));
+		}
+		else
+		{
+			echo json_encode(array("status" => "error", "message" => 'Something Went Wrong'));
+		}
 	}
+
 	
 } catch (Exception $e) {
     echo 'Caught exception: ',  $e->getMessage(), "\n";
