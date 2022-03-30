@@ -1,13 +1,12 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { Form, Button, Alert } from "react-bootstrap";
+import { Form, Button } from "react-bootstrap";
 import { useSelector, useDispatch } from "react-redux";
 import { replyOnTicket } from "../../pages/ticket-list/ticketsAction";
 
 export const UpdateTicket = ({id}) => {
   const dispatch =  useDispatch();
   const { user } = useSelector(state => state.user)
-  const { replyMsg } = useSelector(state => state.tickets)
   const [message, setMessage] = useState('')
 
   const handleOnChange = (e) => {
@@ -28,7 +27,7 @@ export const UpdateTicket = ({id}) => {
 
   return (
     <>
-      {replyMsg && <Alert variant="success">{replyMsg}</Alert>}
+      
       <Form onSubmit={handleOnSubmit}>
         <Form.Label>Reply</Form.Label>
         <Form.Text>Please reply your message here or update the ticket</Form.Text>

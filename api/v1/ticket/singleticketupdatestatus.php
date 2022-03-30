@@ -10,32 +10,13 @@ try{
 	
 	//GET ID from API URL
 	$tId = $_GET['id'];
-	echo $tId;
-	die;
-	// Grab JSON object from Form
-	$data = json_decode(file_get_contents('php://input'), true);
-	// Grab Your Value from Json object
-	$dataMsg=json_encode($data['msgObj']['message']);
-
-	// Replace quotes form the data
-	$message=str_replace('"',"",$dataMsg);
-	// Grab Your Value from Json object
-	$dataSender=json_encode($data['msgObj']['sender']);
-	// Replace quotes form the data
-	$sender=str_replace('"',"",$dataSender);
-
-	$sqlU = "INSERT INTO ticketconversations
-	SET 
-	message=:message, 
-	sender=:sender,
-	ticketRef=:ticketRef";
+	$status = 'closed';
+	
+	$sqlU = "UPDATE tickets SET status='$status' WHERE id='$tId'";
 	$queryU = $conn->prepare($sqlU);
-	$queryU->bindParam(':message', $message);
-	$queryU->bindParam(':sender', $sender);
-	$queryU->bindParam(':ticketRef', $tId);
 	if($queryU->execute())
 	{
-		echo json_encode(array("status" => "success", "message" => 'Ticked status updated Successfully'));
+		echo json_encode(array("status" => "success", "message" => 'Ticket successfully closed'));
 	}
 	else
 	{

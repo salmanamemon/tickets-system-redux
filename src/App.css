@@ -22,3 +22,7 @@ footer {
   padding: 1rem;
   color: white;
 }
+.btn-outline-info.disabled, .btn-outline-info:disabled, .btn-outline-info.disabled:hover, .btn-outline-info:disabled:hover {
+  color: #a7a7a7!important;
+  border-color: #a7a7a7;
+}
