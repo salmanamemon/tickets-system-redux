@@ -27,9 +27,9 @@ export const AddTicketForm = () => {
   
   useEffect(() => {
     return () => {
-      dispatch(openNewTicketResetSuccess())
+      successMsg && dispatch(openNewTicketResetSuccess());
     }
-  }, [frmData, frmDataErro, dispatch]);
+  }, [frmData, frmDataErro, successMsg, dispatch]);
 
   const handleOnChange = (e) => {
     const { name, value } = e.target;
