@@ -3,6 +3,7 @@ import React, { useState } from "react";
 import { Jumbotron } from "react-bootstrap";
 import { LoginForm } from "../../components/login/Login.comp";
 import { ResetPassword } from "../../components/password-reset/PasswordReset.comp";
+import { SignUpForm } from "../../components/signup/SignUp.comp";
 
 import "./entry.style.css";
 
@@ -28,6 +29,15 @@ export const Entry = () => {
 
         {frmLoad === "rest" && (
           <ResetPassword
+            // handleOnChange={handleOnChange}
+            handleOnResetSubmit={handleOnResetSubmit}
+            formSwitcher={formSwitcher}
+            // email={email}
+          />
+        )}
+
+        {frmLoad === "signup" && (
+          <SignUpForm
             // handleOnChange={handleOnChange}
             handleOnResetSubmit={handleOnResetSubmit}
             formSwitcher={formSwitcher}

@@ -109,6 +109,14 @@ export const LoginForm = ({formSwitcher}) => {
           </a>
         </Col>
       </Row>
+
+      <Row>
+        <Col>
+          Not a member? <a href="#!" onClick={() => formSwitcher("signup")}>
+            Register here?
+          </a>
+        </Col>
+      </Row>
     </Container>
   );
 };
