@@ -52,7 +52,7 @@ export const SignUpForm = ({formSwitcher}) => {
         //console.log(form);
 
         const response = await axios
-        .post("http://127.0.0.1/a)TicketSystem/crm-frontend-before-redux-toolkit/api/v1/signup.php", form
+        .post("https://salmanaziz.tech/demos/crm_ticket_redux/api/v1/signup.php", form
         )
         .catch((err) => {
             if (err && err.response) setError(err.response.data.message);
