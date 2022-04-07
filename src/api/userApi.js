@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const rootURL = 'https://salmanaziz.tech/demos/crm_ticket_redux/api/v1/';
+const rootURL = 'http://ticket.salmanaziz.tech/api/v1/';
 const loginUrl = rootURL+'login.php';
 const userProfileUrl = rootURL+'user.php';
 const logoutUrl = rootURL+'logout.php';

@@ -3,7 +3,7 @@ import axios from "axios";
 export const getAllTickets = () => {
     return new Promise(async (resolve, reject) => {
         try {
-            const result = await axios.get('https://salmanaziz.tech/demos/crm_ticket_redux/api/v1/ticket/tickets.php',
+            const result = await axios.get('http://ticket.salmanaziz.tech/api/v1/ticket/tickets.php',
             {
                 headers:{
                     "content-type": "application/json; charset=UTF-8",
@@ -20,7 +20,7 @@ export const getAllTickets = () => {
 export const getSingleTicket = (id) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const result = await axios.get('https://salmanaziz.tech/demos/crm_ticket_redux/api/v1/ticket/singleticket.php?id='+id,
+            const result = await axios.get('http://ticket.salmanaziz.tech/api/v1/ticket/singleticket.php?id='+id,
             {
                 headers:{
                     "content-type": "application/json; charset=UTF-8",
@@ -38,7 +38,7 @@ export const getSingleTicket = (id) => {
 export const updateReplyTicket = (id, msgObj) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const result = await axios.post('https://salmanaziz.tech/demos/crm_ticket_redux/api/v1/ticket/singleticketmessageinsert.php?id='+id,
+            const result = await axios.post('http://ticket.salmanaziz.tech/api/v1/ticket/singleticketmessageinsert.php?id='+id,
             {
                 headers:{
                     "content-type": "application/json; charset=UTF-8",
@@ -59,7 +59,7 @@ export const updateReplyTicket = (id, msgObj) => {
 export const updateTicketStatusClosed = (id) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const result = await axios.post('https://salmanaziz.tech/demos/crm_ticket_redux/api/v1/ticket/singleticketupdatestatus.php?id='+id,
+            const result = await axios.post('http://ticket.salmanaziz.tech/api/v1/ticket/singleticketupdatestatus.php?id='+id,
             {
                 headers:{
                     Authorization: sessionStorage.getItem("authToken"),
@@ -78,7 +78,7 @@ export const updateTicketStatusClosed = (id) => {
 export const createNewTicket = (frmData) => {
     return new Promise(async (resolve, reject) => {
         try {
-            const result = await axios.post('https://salmanaziz.tech/demos/crm_ticket_redux/api/v1/ticket/singleticketinsert.php',
+            const result = await axios.post('http://ticket.salmanaziz.tech/api/v1/ticket/singleticketinsert.php',
                 {
                     headers:{
                         Authorization: sessionStorage.getItem("authToken"),
