@@ -12,10 +12,10 @@ export const Dashboard = () => {
   const { tickets } = useSelector(state => state.tickets);
 
   useEffect(() => {
-    if(!tickets.length){
+    //if(!tickets.length){
       dispatch(fetchAllTickets());
-    }
-  }, [tickets, dispatch])
+    //}
+  }, [dispatch])
   
   const pendingTickets = tickets.filter(row => row.status !== "closed");
   const totalTickets = tickets.length;
